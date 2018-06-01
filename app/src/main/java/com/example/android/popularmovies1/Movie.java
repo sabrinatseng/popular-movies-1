@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,48 +28,48 @@ public class Movie implements Parcelable {
 
     //parse using gson
     @SerializedName("vote_count")
-    private String voteCount;
+    private final String voteCount;
 
     @SerializedName("id")
-    private String id;
+    private final String id;
 
     @SerializedName("video")
-    private Boolean video;
+    private final Boolean video;
 
     @SerializedName("vote_average")
-    private String voteAvg;
+    private final String voteAvg;
 
     @SerializedName("title")
-    private String title;
+    private final String title;
 
     @SerializedName("popularity")
-    private String popularity;
+    private final String popularity;
 
     @SerializedName("poster_path")
-    private String posterPath;
+    private final String posterPath;
 
     @SerializedName("original_language")
-    private String originalLang;
+    private final String originalLang;
 
     @SerializedName("original_title")
-    private String originalTitle;
+    private final String originalTitle;
 
     @SerializedName("genre_ids")
     private List<Integer> genres;
 
     @SerializedName("backdrop_path")
-    private String backdropPath;
+    private final String backdropPath;
 
     @SerializedName("adult")
-    private Boolean adult;
+    private final Boolean adult;
 
     @SerializedName("overview")
-    private String overview;
+    private final String overview;
 
     @SerializedName("release_date")
-    private String releaseDate;
+    private final String releaseDate;
 
-    public Movie(Parcel in) {
+    private Movie(Parcel in) {
         this.voteCount = in.readString();
         this.id = in.readString();
         this.video = in.readByte() != 0;    //read boolean value

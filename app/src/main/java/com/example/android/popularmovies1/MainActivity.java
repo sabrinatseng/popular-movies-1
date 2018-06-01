@@ -26,12 +26,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
     @BindView(R.id.recyclerview_movies)
+    private
     RecyclerView mRecyclerView;
 
     @BindView(R.id.tv_error)
+    private
     TextView mErrorMessage;
 
     @BindView(R.id.pb_loading_indicator)
+    private
     ProgressBar mLoadingIndicator;
 
     private MoviesAdapter mMoviesAdapter;
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         fetchData(sortBy);
     }
 
-    public void fetchData(String sortBy) {
+    private void fetchData(String sortBy) {
         mLoadingIndicator.setVisibility(View.VISIBLE);
 
         if (!isConnected())
@@ -87,12 +90,12 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         }
     }
 
-    public void showMovieData() {
+    private void showMovieData() {
         mErrorMessage.setVisibility(View.INVISIBLE);
         mRecyclerView.setVisibility(View.VISIBLE);
     }
 
-    public void showError() {
+    private void showError() {
         mErrorMessage.setText(getString(R.string.error_message));
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorMessage.setVisibility(View.VISIBLE);
@@ -134,10 +137,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         ActivityCompat.startActivity(this, intent, null);
     }
 
-    public final boolean isConnected()
+    private boolean isConnected()
     {
         //returns true if there is internet to prevent crashing if there is no internet
         final ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        assert cm != null;
         final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }

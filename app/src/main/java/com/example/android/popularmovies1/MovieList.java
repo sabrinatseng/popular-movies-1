@@ -8,7 +8,7 @@ import java.util.List;
  * Created by sabrina on 5/31/18.
  */
 
-public class MovieList {
+class MovieList {
     @SerializedName("results")
     private List<Movie> results;
 

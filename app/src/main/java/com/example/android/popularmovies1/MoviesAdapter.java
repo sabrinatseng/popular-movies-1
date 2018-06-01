@@ -1,15 +1,12 @@
 package com.example.android.popularmovies1;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +21,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         mClickHandler = handler;
     }
 
-    public List<Movie> mMovieData;
+    private List<Movie> mMovieData;
     public static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/";
     public static final String POSTER_SIZE = "w185/";
 
@@ -36,7 +33,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
     public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        ImageView mMovieImageView;
+        final ImageView mMovieImageView;
 
         public MoviesAdapterViewHolder(View view) {
             super(view);
@@ -52,14 +49,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         }
     }
 
+    @NonNull
     @Override
-    public MoviesAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public MoviesAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.movies_grid_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
+        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
         return new MoviesAdapterViewHolder(view);
     }
 
