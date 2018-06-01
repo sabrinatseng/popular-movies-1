@@ -1,4 +1,23 @@
 <resources>
-    <string name="app_name">PopularMovies1</string>
-    <string name="error_message">Error. Please try again by clicking REFRESH</string>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="error_message">Error. Please try again by clicking "Refresh" in the options menu above. </string>
+
+    <string name="title_refresh">Refresh</string>
+    <string name="title_sortBy">Sort By</string>
+    <string name="sortByPopular">Most Popular</string>
+    <string name="sortByTopRated">Highest Rated</string>
+
+    <string name="iv_content_desc">Movie Poster</string>
+
+    <string name="release_date_label">Release Date</string>
+    <string name="avg_rating_label">Average Rating</string>
+    <string name="synopsis_label">Plot Synopsis</string>
+
+    <string name="extras_movie">EXTRAS_MOVIE</string>
+
+    <string name="sortByPopular_tag">popular</string>
+    <string name="sortByTopRated_tag">top_rated</string>
+
+    <string name="detail_error_message">Error: Data not available. Please try again.</string>
 </resources>

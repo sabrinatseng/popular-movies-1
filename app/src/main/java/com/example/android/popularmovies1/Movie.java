@@ -81,7 +81,7 @@ public class Movie implements Parcelable {
         this.originalLang = in.readString();
         this.originalTitle = in.readString();
 
-        in.readList(this.genres, List.class.getClassLoader());  //read into this.genres
+        //in.readList(this.genres, List.class.getClassLoader());  //read into this.genres
 
         this.backdropPath = in.readString();
         this.adult = in.readByte() != 0;
@@ -162,7 +162,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.posterPath);
         dest.writeString(this.originalLang);
         dest.writeString(this.originalTitle);
-        dest.writeList(this.genres);
+        //dest.writeList(this.genres);
         dest.writeString(this.backdropPath);
         dest.writeByte((byte) (this.adult ? 1 : 0));
         dest.writeString(this.overview);

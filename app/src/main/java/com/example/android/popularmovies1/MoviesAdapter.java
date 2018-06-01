@@ -2,7 +2,6 @@ package com.example.android.popularmovies1;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,23 +20,36 @@ import java.util.List;
  */
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder> {
-    public MoviesAdapter() {}
+    public MoviesAdapter(MoviesAdapterOnClickHandler handler) {
+        mClickHandler = handler;
+    }
 
     public List<Movie> mMovieData;
-    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/";
-    private static final String SIZE = "w185/";
+    public static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/";
+    public static final String POSTER_SIZE = "w185/";
 
-    public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder {
+    private final MoviesAdapterOnClickHandler mClickHandler;
+
+    public interface MoviesAdapterOnClickHandler {
+        void onClick(Movie clickedMovie);
+    }
+
+    public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView mMovieImageView;
 
         public MoviesAdapterViewHolder(View view) {
             super(view);
 
-            mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie);
+            mMovieImageView = view.findViewById(R.id.iv_movie);
+            view.setOnClickListener(this);
         }
 
-
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mClickHandler.onClick(mMovieData.get(position));
+        }
     }
 
     @Override
@@ -52,7 +65,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapterViewHolder holder, int position) {
-        String url = BASE_POSTER_URL + SIZE + mMovieData.get(position).getPosterPath(); //use position to get the correct image url
+        String url = BASE_POSTER_URL + POSTER_SIZE + mMovieData.get(position).getPosterPath(); //use position to get the correct image url
         Picasso.get().load(url).into(holder.mMovieImageView);
     }
 
