@@ -1,6 +1,8 @@
 package com.example.android.popularmovies1;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,29 +58,33 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     public void fetchData(String sortBy) {
         mLoadingIndicator.setVisibility(View.VISIBLE);
-        ApiService apiService = RetroClient.getApiService();
-        Call<MovieList> call = apiService.getJSON(sortBy, API_KEY);
-        call.enqueue(new Callback<MovieList>() {
-            @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                if (response.isSuccessful()) {
-                    mMoviesAdapter.setMovieData(response.body().getResults());
-                    showMovieData();
+
+        if (!isConnected())
+            Toast.makeText(this, getString(R.string.no_internet_error_message), Toast.LENGTH_LONG).show();
+        else {
+            ApiService apiService = RetroClient.getApiService();
+            Call<MovieList> call = apiService.getJSON(sortBy, API_KEY);
+            call.enqueue(new Callback<MovieList>() {
+                @Override
+                public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                    if (response.isSuccessful()) {
+                        mMoviesAdapter.setMovieData(response.body().getResults());
+                        showMovieData();
+                    } else
+                        showError();
+
+                    mLoadingIndicator.setVisibility(View.INVISIBLE);
                 }
-                else
+
+                @Override
+                public void onFailure(Call<MovieList> call, Throwable t) {
                     showError();
+                    Log.e(MainActivity.class.getSimpleName(), t.toString());
 
-                mLoadingIndicator.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-                showError();
-                Log.e(MainActivity.class.getSimpleName(), t.toString());
-
-                mLoadingIndicator.setVisibility(View.INVISIBLE);
-            }
-        });
+                    mLoadingIndicator.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 
     public void showMovieData() {
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
     public void showError() {
+        mErrorMessage.setText(getString(R.string.error_message));
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorMessage.setVisibility(View.VISIBLE);
     }
@@ -125,5 +132,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         intent.putExtras(bundle);
 
         ActivityCompat.startActivity(this, intent, null);
+    }
+
+    public final boolean isConnected()
+    {
+        //returns true if there is internet to prevent crashing if there is no internet
+        final ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }
