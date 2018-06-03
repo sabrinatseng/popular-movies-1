@@ -19,19 +19,15 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity{
     @BindView(R.id.iv_poster)
-    private
     ImageView mImageViewPoster;
 
     @BindView(R.id.tv_release_date)
-    private
     TextView mTextViewReleaseDate;
 
     @BindView(R.id.tv_avg_rating)
-    private
     TextView mTextViewAvgRating;
 
     @BindView(R.id.tv_synopsis)
-    private
     TextView mTextViewSynopsis;
 
     @Override
