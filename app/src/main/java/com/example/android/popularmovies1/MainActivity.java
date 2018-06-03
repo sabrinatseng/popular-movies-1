@@ -26,15 +26,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
     @BindView(R.id.recyclerview_movies)
-    private
     RecyclerView mRecyclerView;
 
     @BindView(R.id.tv_error)
-    private
     TextView mErrorMessage;
 
     @BindView(R.id.pb_loading_indicator)
-    private
     ProgressBar mLoadingIndicator;
 
     private MoviesAdapter mMoviesAdapter;
